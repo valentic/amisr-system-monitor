@@ -41,7 +41,7 @@
 #
 #   2023-04-08  Todd Valentic
 #               Fix replacement for project name in project.json
-#               Modidy name and version in project-lock.json
+#               Run npm install to update project-lock.json if needed
 #               Release 1.1.6 
 #
 ##########################################################################
@@ -221,7 +221,6 @@ config_release () {
 
     sed -i "s|\(version=\)\([^ ]*\)|\1'${release}'|" $BACKEND_DIR/src/server/metadata.py
     sed -i "s|\(\"version\":\) *\([^ ]*\)|\1 \"${release}\",|" $FRONTEND_DIR/package.json
-    sed -i "s|\(\"version\":\) *\([^ ]*\)|\1 \"${release}\",|" $FRONTEND_DIR/package-lock.json
     sed -i "s|\(VITE_RELEASE=\)\([^ ]*\)|\1'${release}'|" $FRONTEND_DIR/.env
 }
 
@@ -233,7 +232,6 @@ config_project () {
 
     sed -i "s|\(project=\)\([^ ]*\)|\1'${project}'|" $BACKEND_DIR/src/server/metadata.py
     sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 \"${project}\",|" $FRONTEND_DIR/package.json
-    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 \"${project}\",|" $FRONTEND_DIR/package-lock.json
     sed -i "s|\(VITE_PROJECT=\)\([^ ]*\)|\1'${project}'|" $FRONTEND_DIR/.env
 }
 
@@ -263,6 +261,8 @@ config_handler () {
     # Skip command ("config")
     shift
 
+    local rebuild=0
+
     # Process key=value pairs 
 
     while [ $# -gt 0 ]; do
@@ -273,13 +273,19 @@ config_handler () {
 
       case "$key" in
         siteroot )  config_siteroot ${value}; ;;
-        release )   config_release ${value}; ;;
-        project )   config_project ${value}; ;;
+        release )   config_release ${value}; rebuild=1; ;;
+        project )   config_project ${value}; rebuild=1; ;;
         port )      config_port ${value}; ;; 
         branch )    config_branch ${value}; ;;
         * )         echo "Unknown config option: $key"; ;; 
       esac
     done
+
+    # Rebuild package-lock.json if needed
+
+    if [ "$rebuild" -eq 1 ]; then
+        ( cd $FRONTEND_DIR; npm install)
+    fi
 
     exit
 }
