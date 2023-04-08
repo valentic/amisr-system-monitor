@@ -39,13 +39,18 @@
 #               Change REACT_APP -> VITE
 #               Release 1.1.5
 #
+#   2023-04-08  Todd Valentic
+#               Fix replacement for project name in project.json
+#               Modidy name and version in project-lock.json
+#               Release 1.1.6 
+#
 ##########################################################################
 
 set -o errexit   # abort on nonzero exitstatus
 set -o nounset   # abort on unbound variable
 set -o pipefail  # do not hide errors within pipes
 
-VERSION=1.1.5
+VERSION=1.1.6
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 FRONTEND_DIR=${BASEDIR}/devel/frontend
@@ -205,7 +210,6 @@ config_siteroot () {
 
     echo "Setting siteroot to ${siteroot} (check supervisor and nginx config)"
 
-    sed -i "s|\(\"homepage\":\) *\([^ ]*\)|\1 \"${siteroot}\",|" $FRONTEND_DIR/package.json
     sed -i "s|\(VITE_ROOT_URL=\)\([^ ]*\)|\1${siteroot}|" $FRONTEND_DIR/.env
 }
 
@@ -217,6 +221,7 @@ config_release () {
 
     sed -i "s|\(version=\)\([^ ]*\)|\1'${release}'|" $BACKEND_DIR/src/server/metadata.py
     sed -i "s|\(\"version\":\) *\([^ ]*\)|\1 \"${release}\",|" $FRONTEND_DIR/package.json
+    sed -i "s|\(\"version\":\) *\([^ ]*\)|\1 \"${release}\",|" $FRONTEND_DIR/package-lock.json
     sed -i "s|\(VITE_RELEASE=\)\([^ ]*\)|\1'${release}'|" $FRONTEND_DIR/.env
 }
 
@@ -227,7 +232,8 @@ config_project () {
     echo "Setting project to ${project}"
 
     sed -i "s|\(project=\)\([^ ]*\)|\1'${project}'|" $BACKEND_DIR/src/server/metadata.py
-    sed -i "s|\("name":\) *\([^ ]*\)|\1 '${project}',|" $FRONTEND_DIR/package.json
+    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 '${project}',|" $FRONTEND_DIR/package.json
+    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 '${project}',|" $FRONTEND_DIR/package-lock.json
     sed -i "s|\(VITE_PROJECT=\)\([^ ]*\)|\1'${project}'|" $FRONTEND_DIR/.env
 }
 
