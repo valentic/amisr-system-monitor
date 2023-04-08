@@ -232,8 +232,8 @@ config_project () {
     echo "Setting project to ${project}"
 
     sed -i "s|\(project=\)\([^ ]*\)|\1'${project}'|" $BACKEND_DIR/src/server/metadata.py
-    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 '${project}',|" $FRONTEND_DIR/package.json
-    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 '${project}',|" $FRONTEND_DIR/package-lock.json
+    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 \"${project}\",|" $FRONTEND_DIR/package.json
+    sed -i "s|\(\"name\":\) *\([^ ]*\)|\1 \"${project}\",|" $FRONTEND_DIR/package-lock.json
     sed -i "s|\(VITE_PROJECT=\)\([^ ]*\)|\1'${project}'|" $FRONTEND_DIR/.env
 }
 
