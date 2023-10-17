@@ -3,7 +3,7 @@
 
 SHELL:=/bin/bash
 VIRTENV=venv
-PYTHON:=python3
+PYTHON?=python3
 
 help:
 	@echo "Targets:"
@@ -11,6 +11,8 @@ help:
 	@echo "  update     update development environment"
 	@echo "  build      create Python wheel"
 	@echo "  cleanup    remove build files"
+	@echo ""
+	@echo "Python: ${PYTHON}"
 
 cleanup:
 	rm -rf dist build src/*.egg-info src/instance ${VIRTENV}
