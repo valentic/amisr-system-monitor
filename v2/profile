@@ -1,0 +1,6 @@
+export PROJECT=amisr_system_monitor
+export BRANCH=v2
+export PYTHON=python3.11
+export SITEROOT=/$PROJECT/$BRANCH
+export PORT=9204
+

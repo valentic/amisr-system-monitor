@@ -1,5 +1,5 @@
 # AMISR System Monitor
 
-AMISR Realtime System Monitor
+Real-time web display of AMISR system performance
 
 

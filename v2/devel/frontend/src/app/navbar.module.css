@@ -1,0 +1,31 @@
+.icon {
+    width: rem(40px);
+    height: rem(40px);
+    stroke-width: rem(1px);
+}
+
+
+.link {
+    width: rem(50px);
+    height: rem(50px);
+    border-radius: var(--mantine-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mantine-color-gray-5);
+    
+    &:hover {
+        color: var(--mantine-color-blue-6);
+    }
+
+    &[data-active] {
+        &,
+        &:hover {
+            color: var(--mantine-color-blue-9);
+        }
+
+        .icon {
+            color: var(--mantine-color-blue-9); 
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.page {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        'header' 
+        'main' 
+        'footer';
+}
+
+.main {
+    grid-area: 'main';
+    overflow: auto;
+}
+
+.logo {
+    height: 100%;
+    background-color: var(--mantine-color-gray-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--mantine-color-gray-4);
+}
+
+.online {
+    color: var(--mantine-color-green-8);
+}
+
+.offline {
+    color: var(--mantine-color-red-8);
+}
+
+.unknown {
+    color: var(--mantine-color-gray-1);
+}
+
+.warning {
+    color: var(--mantine-color-yellow-3);
+}
