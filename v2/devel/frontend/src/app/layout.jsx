@@ -14,10 +14,9 @@ import {
 } from '@mantine/core'
 
 import {
-    IconGauge,
-    IconBatteryAutomotive,
+    IconBorderNone,
     IconSquareRoundedLetterA,
-    IconTopologyBus
+    IconServerBolt
 } from '@tabler/icons-react'
 
 import { useAuth } from '~/app'
@@ -62,9 +61,8 @@ const Layout = () => {
     }
 
     const navlinks = [
-        { icon: IconGauge, label: 'Dashboard', link: '/' },
-        { icon: IconTopologyBus, label: 'Network', link: '/' },
-        { icon: IconBatteryAutomotive, label: 'PMCU', link: '/pmcu' },
+        { icon: IconBorderNone, label: 'Dashboard', link: '/' },
+        { icon: IconServerBolt, label: 'PMCU', link: '/pmcu' },
     ]
    
     /*

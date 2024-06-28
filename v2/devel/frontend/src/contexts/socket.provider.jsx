@@ -24,6 +24,11 @@ export const SocketProvider = ({children}) => {
         console.debug(message)
     }
 
+    const flushData = () => {
+        queryClient.invalidateQueries({ queryKey: ['array_data'] }) 
+        queryClient.invalidateQueries({ queryKey: ['pmcu_data'] }) 
+    }
+
     React.useEffect(() => {
 
         if (!isConnected) {
@@ -37,6 +42,7 @@ export const SocketProvider = ({children}) => {
                 socket.current.emit("join", {"room": "database"})
                 setConnected(true)
                 queryClient.setQueryData(["socket"], true) 
+                flushData()
             })
 
             socket.current.on('disconnect', () => {

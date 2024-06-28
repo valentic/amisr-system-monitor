@@ -1,0 +1,10 @@
+.stat {
+    border-bottom: rem(3px) solid;
+    padding-bottom: rem(5px);
+}
+
+.statCount {
+    font-family: "Roboto Condensed", var(--mantine-font-family);
+    line-height: 1.3;
+}
+

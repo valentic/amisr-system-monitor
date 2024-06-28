@@ -1,6 +1,7 @@
 import React from 'react'
 import { createPalette } from 'hue-map'
 import utc from 'dayjs/plugin/utc'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import dayjs from 'dayjs'
 import { 
     Group,
@@ -12,6 +13,7 @@ import {
 } from 'react-konva'
 
 dayjs.extend(utc)
+dayjs.extend(customParseFormat)
 
 const AEU_SIZE = 12  
 const AEU_SPACING = 15
@@ -31,7 +33,7 @@ const ARRAY_WIDTH = ARRAY_PADDING + ARRAY_COLS*PANEL_WIDTH + ARRAY_PADDING
 
 const CHART_PADDING_TOP = 220
 const CHART_PADDING_LEFT = 75 
-const CHART_PADDING_RIGHT = 50
+const CHART_PADDING_RIGHT = 75 
 const CHART_PADDING_BOTTOM = 75 
 
 const CHART_WIDTH = CHART_PADDING_LEFT + ARRAY_WIDTH + CHART_PADDING_RIGHT
@@ -62,7 +64,7 @@ const Panel = ({x, y, data}) => {
                 const pwatts = data[index].pwatts
 
                 if (data[index].pfwd) {
-                    const value = Math.round(pwatts / 600 * 127)
+                    const value = Math.round(Math.min(pwatts,600) / 600 * 127)
                     fill = colorscale[value]
                 }
             }
@@ -208,13 +210,13 @@ const ArrayChart = ({data, width, height}) => {
     const scaleY = height / CHART_HEIGHT 
 
     const peak_power = Math.round(data.summary.peak_power / 1000)
-    const timestamp = dayjs.utc(data.metadata.timestamp)
+    const timestamp = dayjs.utc(data.metadata.timestamp, "YYYY-MM-DD HH:mm:ss.SSSZ")
 
     return (
         <Stage width={width} height={height} scaleX={scaleX} scaleY={scaleY}>
           <Layer>
             <Rect width={CHART_WIDTH} height={CHART_HEIGHT} /> 
-            <Text text={`${face.toUpperCase()} Peak Power ${peak_power} KW`}
+            <Text text={`${face.toUpperCase()} Peak Power ${peak_power} kW`}
                 y={30} 
                 width={CHART_WIDTH}
                 align="center"

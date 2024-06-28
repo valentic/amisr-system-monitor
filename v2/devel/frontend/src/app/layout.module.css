@@ -39,3 +39,8 @@
 .warning {
     color: var(--mantine-color-yellow-3);
 }
+
+.title {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 700;
+}
